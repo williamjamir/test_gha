@@ -2,9 +2,10 @@ name: Main
 
 on:
   push:
-    branches: [ develop, production ]
+    branches: [ main ]
   pull_request:
-  
+  schedule:
+    - cron: '*/5 * * * *'  #  every friday at 9 a.m.
   
 jobs:
   setup:
@@ -13,11 +14,11 @@ jobs:
     
     steps:
       - name: General 
-        run: echo github.event_name
+        run: echo ${{github.event_name}}
         
       - name: Only On PR
         if: github.event_name == 'pull_request'
-        run: echo github.event_name 
+        run: echo ${{github.event_name}}
 
   check:
     needs: setup
@@ -26,4 +27,14 @@ jobs:
     
     steps:
       - name: Inside Check
-        run: echo "Oi"
+        run: echo ${{github.event_name}}"
+  
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [check]
+    if: github.event_name == 'push'
+    
+    steps:
+      - name: Build 
+        run: echo ${{github.event_name}}
