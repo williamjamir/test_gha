@@ -27,7 +27,7 @@ jobs:
     
     steps:
       - name: Inside Check
-        run: echo ${{github.event_name}}"
+        run: echo ${{github.event_name}}
   
   deploy:
     runs-on: ubuntu-latest
