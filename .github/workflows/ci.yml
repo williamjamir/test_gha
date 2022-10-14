@@ -2,6 +2,7 @@ name: Main
 
 on:
   push:
+    branches: [ main ]
   pull_request:
 
   
@@ -24,23 +25,4 @@ jobs:
       
       - name: Consume Variable
         id: consume
-        run: echo "${{ jobs.version_job.steps.version.outputs.version_number }}"
-
-  check:
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    
-    steps:
-      - name: Inside Check
-        run: echo ${{github.event_name}}
-  
-  deploy:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    needs: [check]
-    if: github.event_name == 'push'
-    
-    steps:
-      - name: Build 
-        run: echo ${{github.event_name}}
+        run: echo "${{ jobs.setup.steps.version.outputs.version_number }}"
