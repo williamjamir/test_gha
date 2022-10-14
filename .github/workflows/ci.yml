@@ -25,4 +25,4 @@ jobs:
       
       - name: Consume Variable
         id: consume
-        run: echo "${{ jobs.setup.steps.version.outputs.version_number }}"
+        run: echo "${{ steps.version.outputs.version_number }}"
