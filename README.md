@@ -1,2 +1,1 @@
-
-Testing github actions stuffs
+Snippets from some tests using Github actions.
