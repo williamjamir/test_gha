@@ -2,7 +2,6 @@ name: Main
 
 on:
   push:
-    branches: [ main ]
   pull_request:
 
   
@@ -18,6 +17,14 @@ jobs:
       - name: Only On PR
         if: github.event_name == 'pull_request'
         run: echo ${{github.event_name}}
+    
+      - name: Set variable
+        id: version
+        run: echo "::set-output name=version_number::1.2.3"
+      
+      - name: Consume Variable
+        id: consume
+        run: echo "${{ jobs.version_job.steps.version.outputs.version_number }}"
 
   check:
     needs: setup
