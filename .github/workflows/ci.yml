@@ -12,7 +12,7 @@ on:
   pull_request:
 
 env:
-  MY_ENV_VAR: ${{ github.event.inputs.my_input_var && '' || '-e pip_args==--no-cache-dir' }}
+  MY_ENV_VAR: ${{ github.event.inputs.my_input_var && '-e pip_args==--no-cache-dir' || '' }}
   
 jobs:
   setup:
