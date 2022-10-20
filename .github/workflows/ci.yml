@@ -5,11 +5,8 @@ on:
     inputs:
       my_input_var:
         description: 'Deploy with pip caching disabled'
-        type: choice
-        options: 
-        - 'true'
-        - 'false'
-        default: 'false'
+        type: boolean
+        default: false
   push:
     branches: [ main ]
   pull_request:
