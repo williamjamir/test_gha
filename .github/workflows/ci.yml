@@ -3,11 +3,27 @@ name: Main
 on:
   workflow_dispatch:
     inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+      message:
+        required: true
+      use-emoji:
+        type: boolean
+        description: Include  emojis
+      environment:
+        type: environment
       my_input_var:
         description: 'Some Description'
         required: true
-        type: boolean
-        default: false
+        type: choice
+        options: 
+        - 'true'
+        - 'false'
+        default: 'false'
   push:
     branches: [ main ]
   pull_request:
@@ -42,9 +58,9 @@ jobs:
           echo ${{ github.event.inputs.my_input_var == 'true' }}
           echo ${{ github.event_name == 'push'}}
           echo ${{github.event_name}}
-          echo "${{github.event_name == 'push' || github.event.inputs.my_input_var == true }}"
+          echo "${{github.event_name == 'push' || github.event.inputs.my_input_var == 'true' }}"
           
         
       - name: Conditional Step
-        if: ${{ github.event.inputs.my_input_var == true  || github.event_name == 'push' }} # a single comment
+        if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
         run: echo "I'm here"
