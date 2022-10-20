@@ -40,6 +40,7 @@ jobs:
       
       - name: Debug
         run: |
+          echo ${{ env.MY_ENV_VAR }}
           echo ${{ github.event.inputs.my_input_var }}
           echo ${{ github.event.inputs.my_input_var == 'true' }}
           echo ${{ github.event_name == 'push'}}
