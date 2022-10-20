@@ -6,6 +6,7 @@ on:
       my_input_var:
         description: 'Some Description'
         required: true
+        type: boolean
         default: false
   push:
     branches: [ main ]
@@ -36,8 +37,14 @@ jobs:
         run: echo "${{ steps.version.outputs.version_number }}"
       
       - name: Debug
-        run: echo "${{ env.MY_ENV_VAR }}"
+        run: |
+          echo ${{ github.event.inputs.my_input_var }}
+          echo ${{ github.event.inputs.my_input_var == 'true' }}
+          echo ${{ github.event_name == 'push'}}
+          echo ${{github.event_name}}
+          echo "${{github.event_name == 'push' || github.event.inputs.my_input_var == true }}"
+          
         
       - name: Conditional Step
-        if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var }} # a single comment
-        run: echo "${{ env.MY_ENV_VAR }}"
+        if: ${{ github.event.inputs.my_input_var == true  || github.event_name == 'push' }} # a single comment
+        run: echo "I'm here"
