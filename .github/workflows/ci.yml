@@ -39,5 +39,5 @@ jobs:
         run: echo "${{ env.MY_ENV_VAR }}"
         
       - name: Conditional Step
-        if: github.event_name == 'push' || ${{ env.MY_ENV_VAR }}
+        if: github.event_name == 'push' || ${{ env.MY_ENV_VAR }} # a single comment
         run: echo "${{ env.MY_ENV_VAR }}"
