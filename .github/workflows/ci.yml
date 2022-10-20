@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       my_input_var:
-        description: 'Some Description'
-        required: true
+        description: 'Deploy with pip caching disabled'
         type: choice
         options: 
         - 'true'
