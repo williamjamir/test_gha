@@ -5,7 +5,7 @@ on:
     inputs:
       my_input_var:
         description: 'Some Description'
-        required: false
+        required: true
         default: false
   push:
     branches: [ main ]
