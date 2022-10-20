@@ -39,5 +39,5 @@ jobs:
         run: echo ${{ github.event.inputs.my_input_var }}
         
       - name: Conditional Step
-        if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var }} # a single comment
+        if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var == 'true' }} # a single comment
         run: echo "${{ env.MY_ENV_VAR }}" # Should be skipped
