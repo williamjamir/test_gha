@@ -41,6 +41,8 @@ jobs:
           echo ${{ github.event.inputs.my_input_var == 'true' }}
           echo ${{ github.event_name == 'push'}}
           echo ${{github.event_name}}
+          echo ${{github.event_name == 'push' || ${{ github.event.inputs.my_input_var == 'true' }}}}
+          
         
       - name: Conditional Step
         if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var == 'true' }} # a single comment
