@@ -49,4 +49,4 @@ jobs:
         
       - name: Conditional Step
         if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
-        run: echo "I'm here"
+        run: echo "${{ env.MY_ENV_VAR }}"
