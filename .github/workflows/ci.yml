@@ -6,6 +6,7 @@ on:
       my_input_var:
         description: 'Some Description'
         required: true
+        type: boolean
         default: false
   push:
     branches: [ main ]
@@ -45,5 +46,5 @@ jobs:
           
         
       - name: Conditional Step
-        if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var == 'true' }} # a single comment
+        if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var }} # a single comment
         run: echo "I'm here"
