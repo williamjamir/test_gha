@@ -36,7 +36,11 @@ jobs:
         run: echo "${{ steps.version.outputs.version_number }}"
       
       - name: Debug
-        run: echo ${{ github.event.inputs.my_input_var }}
+        run: |
+          echo ${{ github.event.inputs.my_input_var }}
+          echo ${{ github.event.inputs.my_input_var == 'true' }}
+          echo github.event_name == 'push'
+          echo github.event_name
         
       - name: Conditional Step
         if: github.event_name == 'push' || ${{ github.event.inputs.my_input_var == 'true' }} # a single comment
