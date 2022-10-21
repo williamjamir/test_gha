@@ -15,7 +15,7 @@ on:
   pull_request:
 
 env:
-  MY_ENV_VAR: ${{ github.event.inputs.my_input_var == 'true' && '-e pip_args==--no-cache-dir' || '' }}
+  MY_ENV_VAR: ${{ github.event.inputs.my_input_var == 'true' && "-e 'pip_args==--no-cache-dir'" || '' }}
   
 jobs:
   setup:
@@ -50,4 +50,4 @@ jobs:
         
       - name: Conditional Step
         if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
-        run: echo "${{ env.MY_ENV_VAR }}"
+        run: pip install "${{ env.MY_ENV_VAR }}" requests
