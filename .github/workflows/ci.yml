@@ -16,7 +16,8 @@ on:
 
 env:
   MY_ENV_VAR: ${{ github.event.inputs.my_input_var == 'true' && '-e "pip_args==--no-cache-dir"' || '' }}
-  SHA_VALUE: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.sha }}"
+  SHA_VALUE: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.sha }}
+  SHA_VALUE2: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
   
 jobs:
   setup:
@@ -43,6 +44,7 @@ jobs:
         run: |
           echo ${{ env.MY_ENV_VAR }}
           echo ${{ env.SHA_VALUE }} 
+          echo ${{ env.SHA_VALUE2 }} 
           echo ${{ github.event.inputs.my_input_var }}
           echo ${{ github.event.inputs.my_input_var == 'true' }}
           echo ${{ github.event_name == 'push'}}
