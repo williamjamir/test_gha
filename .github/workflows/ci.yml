@@ -47,7 +47,17 @@ jobs:
           echo ${{github.event_name}}
           echo "${{github.event_name == 'push' || github.event.inputs.my_input_var == 'true' }}"
           
-        
+      - name: Get SHA version
+        id: sha-version
+        shell: bash
+        run: echo "version=${{ (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: Generate semver version
+        id: semantic-version
+        shell: bash
+        run: echo "${{ steps.sha-version.outputs.version }}"
+          
+          
       - name: Conditional Step
         if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
         run: pip install "${{ env.MY_ENV_VAR }}" requests
