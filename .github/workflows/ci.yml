@@ -16,6 +16,7 @@ on:
 
 env:
   MY_ENV_VAR: ${{ github.event.inputs.my_input_var == 'true' && '-e "pip_args==--no-cache-dir"' || '' }}
+  SHA_VALUE: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.sha }}"
   
 jobs:
   setup:
@@ -41,12 +42,13 @@ jobs:
       - name: Debug
         run: |
           echo ${{ env.MY_ENV_VAR }}
+          echo ${{ env.SHA_VALUE}
           echo ${{ github.event.inputs.my_input_var }}
           echo ${{ github.event.inputs.my_input_var == 'true' }}
           echo ${{ github.event_name == 'push'}}
           echo ${{github.event_name}}
           echo "${{github.event_name == 'push' || github.event.inputs.my_input_var == 'true' }}"
-          
+        
       - name: Get SHA version
         id: sha-version
         shell: bash
@@ -57,7 +59,7 @@ jobs:
         shell: bash
         run: echo "${{ steps.sha-version.outputs.version }}"
           
-          
+        
       - name: Conditional Step
         if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
         run: pip install "${{ env.MY_ENV_VAR }}" requests
