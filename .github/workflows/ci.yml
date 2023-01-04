@@ -64,4 +64,4 @@ jobs:
         
       - name: Conditional Step
         if: ${{ github.event.inputs.my_input_var == 'true'  || github.event_name == 'push' }} # a single comment
-        run: pip install "${{ env.MY_ENV_VAR }}" requests
+        run: echo "pip install "${{ env.MY_ENV_VAR }}" requests"
